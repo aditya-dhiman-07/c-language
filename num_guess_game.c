@@ -11,12 +11,12 @@ int main()
     int tries = 0;
     int min = 1;
     int max = 100;
-    int answer = rand() % (max - min + 1) + min;
+    int answer = rand() % ((max - min + 1) + min);
     printf(" Number guessing game !!! \n");
     do
     {
         printf("Guess a number between %d - %d : ", min, max);
-        scanf("%d", guess);
+        scanf("%d", &guess);
         tries++;
 
         if (guess < answer)
@@ -30,7 +30,7 @@ int main()
         else{
             printf("CORRECT\n");
         }
-    }while (guess != answer);
+    } while (guess != answer);
 
     printf("The answer is %d\n", answer);
     printf("It took you %d tries", tries);
