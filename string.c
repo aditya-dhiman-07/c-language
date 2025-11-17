@@ -3,7 +3,6 @@
 #include <stdlib.h>
 // incomplete
 
-
 int main() {
     int a = 1;
     char name[100];      // buffer for input
@@ -23,7 +22,7 @@ int main() {
         }
         a++;
 
-    } while(name[strlen(name) - 1] != '\0'); // end when newline removed
+    } while(name[strlen(name) - 1] != '\0');
 
     printf("%s",name);
     return 0;
