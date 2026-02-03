@@ -15,6 +15,11 @@ struct Node* createNode(int data) {
     return temp;
 }
 
+int lengthRecursive(struct Node* start) {
+    if (start == NULL)
+        return 0;
+    return 1 + lengthRecursive(start->next);
+}
 void insertAtEnd(struct Node** start, int data) {
     struct Node* temp = createNode(data);
 
@@ -37,17 +42,6 @@ void display(struct Node* start) {
     }
     printf("NULL\n");
 }
-void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
-
-    while (ptr) {
-        temp = ptr->next;
-        ptr->next = prev;
-        prev = ptr;
-        ptr = temp;
-    }
-    *start = prev;
-}
 int main() {
     struct Node* start = NULL;
 
@@ -56,13 +50,9 @@ int main() {
     insertAtEnd(&start, 30);
     insertAtEnd(&start, 40);
 
-    printf("Original Linked List:\n");
     display(start);
 
-    reverseList(&start);
-
-    printf("Reversed Linked List:\n");
-    display(start);
+    printf("Length of Linked List = %d\n", lengthRecursive(start));
 
     return 0;
 }

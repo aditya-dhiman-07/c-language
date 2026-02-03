@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 struct Node {
     int data;
     struct Node* next;
 };
+
 struct Node* createNode(int data) {
     struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
     if (temp == NULL) {
         printf("Memory allocation failed\n");
-        exit(1);
+        return NULL;
     }
     temp->data = data;
     temp->next = NULL;
@@ -29,6 +31,7 @@ void insertAtEnd(struct Node** start, int data) {
 
     ptr->next = temp;
 }
+
 void display(struct Node* start) {
     struct Node* ptr = start;
     while (ptr != NULL) {
@@ -37,32 +40,43 @@ void display(struct Node* start) {
     }
     printf("NULL\n");
 }
-void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
 
-    while (ptr) {
-        temp = ptr->next;
-        ptr->next = prev;
-        prev = ptr;
-        ptr = temp;
+int isPalindrome(struct Node* start) {
+    int arr[100];
+    int i = 0;
+
+    struct Node* ptr = start;
+    while (ptr != NULL) {
+        arr[i++] = ptr->data;
+        ptr = ptr->next;
     }
-    *start = prev;
+
+    int l = 0, r = i - 1;
+    while (l < r) {
+        if (arr[l] != arr[r])
+            return 0;
+        l++;
+        r--;
+    }
+    return 1;
 }
+
 int main() {
     struct Node* start = NULL;
 
-    insertAtEnd(&start, 10);
-    insertAtEnd(&start, 20);
-    insertAtEnd(&start, 30);
-    insertAtEnd(&start, 40);
+    insertAtEnd(&start, 1);
+    insertAtEnd(&start, 2);
+    insertAtEnd(&start, 3);
+    insertAtEnd(&start, 2);
+    insertAtEnd(&start, 1);
 
-    printf("Original Linked List:\n");
+    printf("Linked List:\n");
     display(start);
 
-    reverseList(&start);
-
-    printf("Reversed Linked List:\n");
-    display(start);
+    if (isPalindrome(start))
+        printf("Linked List is a Palindrome\n");
+    else
+        printf("Linked List is NOT a Palindrome\n");
 
     return 0;
 }

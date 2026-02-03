@@ -15,6 +15,20 @@ struct Node* createNode(int data) {
     return temp;
 }
 
+
+void removeDuplicates(struct Node* start) {
+    struct Node* ptr = start;
+
+    while (ptr && ptr->next) {
+        if (ptr->data == ptr->next->data) {
+            struct Node* temp = ptr->next;
+            ptr->next = temp->next;
+            free(temp);
+        } else {
+            ptr = ptr->next;
+        }
+    }
+}
 void insertAtEnd(struct Node** start, int data) {
     struct Node* temp = createNode(data);
 
@@ -37,31 +51,22 @@ void display(struct Node* start) {
     }
     printf("NULL\n");
 }
-void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
-
-    while (ptr) {
-        temp = ptr->next;
-        ptr->next = prev;
-        prev = ptr;
-        ptr = temp;
-    }
-    *start = prev;
-}
 int main() {
     struct Node* start = NULL;
 
     insertAtEnd(&start, 10);
+    insertAtEnd(&start, 10);
+    insertAtEnd(&start, 20);
     insertAtEnd(&start, 20);
     insertAtEnd(&start, 30);
-    insertAtEnd(&start, 40);
+    insertAtEnd(&start, 30);
 
-    printf("Original Linked List:\n");
+    printf("Before Removing Duplicates:\n");
     display(start);
 
-    reverseList(&start);
+    removeDuplicates(start);
 
-    printf("Reversed Linked List:\n");
+    printf("After Removing Duplicates:\n");
     display(start);
 
     return 0;

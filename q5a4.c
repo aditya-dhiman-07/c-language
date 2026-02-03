@@ -37,17 +37,18 @@ void display(struct Node* start) {
     }
     printf("NULL\n");
 }
-void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
 
-    while (ptr) {
-        temp = ptr->next;
-        ptr->next = prev;
-        prev = ptr;
-        ptr = temp;
+void delete_alternate_nodes(struct Node* start) {
+    struct Node* ptr = start;
+
+    while (ptr && ptr->next) {
+        struct Node* temp = ptr->next;
+        ptr->next = temp->next;
+        free(temp);
+        ptr = ptr->next;
     }
-    *start = prev;
 }
+
 int main() {
     struct Node* start = NULL;
 
@@ -55,14 +56,17 @@ int main() {
     insertAtEnd(&start, 20);
     insertAtEnd(&start, 30);
     insertAtEnd(&start, 40);
+    insertAtEnd(&start, 50);
+    insertAtEnd(&start, 60);
 
     printf("Original Linked List:\n");
     display(start);
 
-    reverseList(&start);
+    delete_alternate_nodes(start);
 
-    printf("Reversed Linked List:\n");
+    printf("After Deleting Alternate Nodes:\n");
     display(start);
 
     return 0;
 }
+

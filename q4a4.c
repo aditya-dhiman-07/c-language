@@ -37,32 +37,43 @@ void display(struct Node* start) {
     }
     printf("NULL\n");
 }
-void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
 
-    while (ptr) {
-        temp = ptr->next;
-        ptr->next = prev;
-        prev = ptr;
-        ptr = temp;
-    }
-    *start = prev;
+struct Node* concatenate_lists(struct Node* start1, struct Node* start2) {
+    if (start1 == NULL)
+        return start2;
+
+    struct Node* ptr = start1;
+    while (ptr->next != NULL)
+        ptr = ptr->next;
+
+    ptr->next = start2;
+    return start1;
 }
+
 int main() {
-    struct Node* start = NULL;
+    struct Node* start1 = NULL;
+    struct Node* start2 = NULL;
 
-    insertAtEnd(&start, 10);
-    insertAtEnd(&start, 20);
-    insertAtEnd(&start, 30);
-    insertAtEnd(&start, 40);
+    insertAtEnd(&start1, 1);
+    insertAtEnd(&start1, 2);
+    insertAtEnd(&start1, 3);
 
-    printf("Original Linked List:\n");
-    display(start);
+    insertAtEnd(&start2, 4);
+    insertAtEnd(&start2, 5);
+    insertAtEnd(&start2, 6);
 
-    reverseList(&start);
+    printf("First Linked List:\n");
+    display(start1);
 
-    printf("Reversed Linked List:\n");
-    display(start);
+    printf("Second Linked List:\n");
+    display(start2);
+
+    start1 = concatenate_lists(start1, start2);
+
+    printf("After Concatenation:\n");
+    display(start1);
 
     return 0;
 }
+
+
