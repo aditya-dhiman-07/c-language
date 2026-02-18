@@ -20,7 +20,7 @@ struct Node* createNode(int data) {
 
 void insertAtStart(struct Node** start, int data) {
     struct Node* temp = createNode(data);
-    temp->next = *start;   // ✅ FIXED
+    temp->next = *start;  
     *start = temp;
 }
 
