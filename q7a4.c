@@ -38,13 +38,13 @@ void display(struct Node* start) {
     printf("NULL\n");
 }
 void reverseList(struct Node** start) {
-    struct Node *prev = NULL, *ptr = *start, *temp = NULL;
+    struct Node *prev = NULL, *ptr = *start, *next = NULL;
 
     while (ptr) {
-        temp = ptr->next;
+        next = ptr->next;
         ptr->next = prev;
         prev = ptr;
-        ptr = temp;
+        ptr = next;
     }
     *start = prev;
 }

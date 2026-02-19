@@ -123,6 +123,18 @@ void display(struct Node* start) {
     printf("NULL\n");
 }
 
+struct Node* reverselist(struct Node** start) {
+    struct Node*prev = NULL,*ptr=*start,*next=NULL;
+    while(ptr){
+        next = ptr->next;
+        ptr->next=prev;
+        prev = ptr;
+        ptr = next;
+    }
+    *start = prev;
+    return *start; 
+}
+
 int main() {
     struct Node* start = NULL;
 

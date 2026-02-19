@@ -15,6 +15,7 @@ void insertafter(struct node**start,int x , int data);
 void deletefirst(struct node** start);
 void deletelast(struct node** start);
 void deletevalue(struct node** start,int x);
+void reverselist(struct node** start);
 void display(struct node** start);
 
  
@@ -26,6 +27,10 @@ int main(){
     insertatend(&start,46);
     insertbefore(&start,16,69);
     insertafter(&start,25,104);
+    deletefirst(&start);
+    deletelast(&start);
+    display(&start);
+    reverselist(&start);
     display(&start);
 return 0;
 }
@@ -111,18 +116,74 @@ void insertafter(struct node** start, int x, int data) {
 }
 
 void deletefirst(struct node**start){
-
     struct node* temp = *start;
     if (!(*start)) {
         printf("List is empty.");
         return;
     }
-    if(!(temp->next)){
+    if((temp->next)){
     temp->next->prev = NULL;
     *start = temp->next;
     }
     free(temp);
+}
 
+void deletelast(struct node** start){
+    if(!(*start)){
+        printf("list is empty");
+        return;
+    }
+    if(!((*start)->next)){  // only one node
+    free(*start);
+    *start = NULL;
+    return;
+    }
+    struct node *ptr = *start;
+    while(ptr->next->next){
+        ptr = ptr->next;
+    }
+    free(ptr->next);
+    ptr->next = NULL;
+
+}
+
+void deletevalue(struct node** start,int x){
+    if(!(*start)){
+        printf("el");
+        return;
+    }
+    if (((*start)->data)==x){
+        struct node*temp1 = *start;
+        *start = temp1->next;
+        free(temp1);
+        return;
+    }
+    struct node*ptr = *start;
+    while(ptr->next&&ptr->next->data!=x){
+        ptr = ptr->next;
+    }
+    struct node*temp = ptr->next; 
+    ptr->next = temp->next;
+    if(temp->next){
+    temp->next->prev = ptr;
+    }
+    free(temp);
+}
+void reverselist(struct node** start) {
+    struct node *prev = NULL, *ptr = *start, *next = NULL;
+    
+    while(ptr){
+        next = ptr->next ;
+        ptr->next = prev;
+        ptr->prev = next;
+        prev = ptr;
+        ptr = next;
+    }
+    if(prev){
+        prev->prev= NULL;
+    }
+    
+    *start = prev;
 }
 
 void display(struct node** start){
