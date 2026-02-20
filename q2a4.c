@@ -25,7 +25,7 @@ void insertAtEnd(struct Node** start, int data) {
 
     if (*start == NULL) {
         *start = temp;
-        return;
+        return; 
     }
 
     struct Node* ptr = *start;
